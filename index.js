@@ -18,16 +18,14 @@ function Diner (name, dishes) {
         return a + b.price;
     }, 0);
     this.tax = this.preTax * .08;
-    //trying to simplify the tip print in the this.print
-    this.tip = makeTip([])
     this.total = this.preTax + this.tax;
     this.calculateTotal = function (tip) {
+        this.tip = tip;
         this.totalWithTip = this.total + tip;
         return this.totalWithTip;
     };
-    //help here please!
     this.print = function () {
-        console.log(this.name + " owes " + "$" + parseFloat(this.calculateTotal).toFixed(2) + ". This diner's subtotal is " + "$" + parseFloat(this.preTax).toFixed(2) + ". This diner's taxes totals to " + "$" + parseFloat(this.tax).toFixed(2) + ". This diner's share of the tip is " + "$" + parseFloat(makeTip()).toFixed(2));
+        console.log(this.name + " owes " + "$" + parseFloat(this.totalWithTip).toFixed(2) + ". This diner's subtotal is " + "$" + parseFloat(this.preTax).toFixed(2) + ". This diner's taxes totals to " + "$" + parseFloat(this.tax).toFixed(2) + ". This diner's share of the tip is " + "$" + parseFloat(this.tip).toFixed(2));
     };
 }
 
@@ -40,7 +38,7 @@ function Meal (name, price){
 $("document").ready(function(){
     var colin = new Diner("Colin", [new Meal("steak", 19.00), new Meal ("Rice", 5), new Meal ("wine", 43.21)]);
     var mario = new Diner("Mario", [new Meal("fries", 18.00), new Meal ("Rice", 5), new Meal ("soda", 5.44)]);
-    colin.addMeal();
+    colin.addMeal(new Meal("steak", 19.00));
     var tipAmountEach = makeTip([colin, mario]);
     var total = colin.calculateTotal(tipAmountEach) + mario.calculateTotal(tipAmountEach);
     console.log("$" + parseFloat(total).toFixed(2));
